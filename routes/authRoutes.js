@@ -42,3 +42,21 @@ router.get('/api/check-auth', (req, res) => {
 });
 
 module.exports = router;
+
+// ==========================================
+// TEMPORARY DEBUG ROUTE (Pwede mong burahin mamaya)
+// ==========================================
+router.get('/debug-creds', async (req, res) => {
+    try {
+        // Kunin ang lahat ng admin sa database
+        const admins = db.query('SELECT username, password_hash FROM admin');
+        
+        res.json({
+            message: 'Narito ang mga admin sa database mo:',
+            admins: admins,
+            instruction: 'Gamitin ang username sa taas para mag-login.'
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
