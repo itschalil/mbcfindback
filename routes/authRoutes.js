@@ -14,7 +14,7 @@ router.post('/api/login', (req, res) => {
 
         const admin = db.queryOne('SELECT * FROM admin WHERE username = ?', [username]);
 
-        if (!admin || !bcrypt.compareSync(password, admin.password_hash)) {
+      if (!admin || !admin.password_hash || !bcrypt.compareSync(password, admin.password_hash)) {
             return res.status(401).json({ error: 'Invalid username or password.' });
         }
 

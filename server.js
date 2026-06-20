@@ -12,6 +12,7 @@ const studentRoutes = require('./routes/studentRoutes');
 const db = require('./db/database');
 
 const app = express();
+app.set('trust proxy', 1); // <--- DAGDAG MO ITO PARA MA-FIX YUNG RATE LIMIT ERROR
 const PORT = process.env.PORT || 3000;
 
 const cors = require('cors');
