@@ -28,3 +28,15 @@ build/
 .gradle/
 *.iml
 local.properties
+
+node_modules/
+.env
+*.db
+.DS_Store
+Thumbs.db
+
+# Ito ang pinaka-importante para mawala yung warnings kanina:
+.gradle/
+build/
+local.properties
+*.iml
