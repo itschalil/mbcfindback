@@ -81,8 +81,8 @@ if (usePostgreSQL) {
 
             const existingAdmin = await queryOne('SELECT id FROM admin LIMIT 1');
             if (!existingAdmin) {
-                const username = process.env.ADMIN_USERNAME || 'admin';
-                const password = process.env.ADMIN_PASSWORD || 'admin123';
+                const username = process.env.ADMIN_USERNAME || 'mbcfindbackadmin';
+                const password = process.env.ADMIN_PASSWORD || '@weareOSA';
                 const hash = bcrypt.hashSync(password, 10);
                 await execute('INSERT INTO admin (username, password_hash) VALUES (?, ?) RETURNING id', [username, hash]);
                 console.log(`✅ Default admin created: ${username}`);
@@ -153,8 +153,8 @@ else {
 
             const existingAdmin = queryOne('SELECT id FROM admin LIMIT 1');
             if (!existingAdmin) {
-                const username = process.env.ADMIN_USERNAME || 'admin';
-                const password = process.env.ADMIN_PASSWORD || 'admin123';
+                const username = process.env.ADMIN_USERNAME || 'mbcfindbackadmin';
+                const password = process.env.ADMIN_PASSWORD || '@weareOSA';
                 const hash = bcrypt.hashSync(password, 10);
                 execute('INSERT INTO admin (username, password_hash) VALUES (?, ?)', [username, hash]);
                 console.log(`✅ Default admin created: ${username}`);
