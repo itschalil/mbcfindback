@@ -1,0 +1,189 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Arial, sans-serif; background: #f5f5f5; color: #333; }
+header { background: #2c3e50; color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+main { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+
+/* Login */
+.login-container { max-width: 400px; margin: 100px auto; padding: 2rem; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center; }
+.login-container input { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ddd; border-radius: 4px; }
+.login-container button { width: 100%; padding: 10px; background: #2c3e50; color: white; border: none; border-radius: 4px; cursor: pointer; }
+
+/* Grid */
+.items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
+.item-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+.item-card img { width: 100%; height: 200px; object-fit: cover; }
+.item-info { padding: 1rem; }
+.item-info h3 { margin-bottom: 0.5rem; }
+
+/* Status */
+.status-badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; color: white; margin: 8px 0; }
+.status-unclaimed { background: #e67e22; }
+.status-claimed { background: #3498db; }
+.status-returned { background: #27ae60; }
+.status-pending { background: #f39c12; }
+.status-approved { background: #27ae60; }
+.status-rejected { background: #e74c3c; }
+
+/* Buttons */
+button { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; margin: 4px; }
+.claim-btn { background: #3498db; color: white; width: 100%; margin-top: 8px; }
+.danger { background: #e74c3c; color: white; }
+.approve { background: #27ae60; color: white; }
+
+/* Modal */
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+.modal-content { background: white; padding: 2rem; border-radius: 8px; width: 90%; max-width: 500px; position: relative; }
+.modal-content input, .modal-content textarea { width: 100%; padding: 8px; margin: 6px 0 12px; border: 1px solid #ddd; border-radius: 4px; }
+.close-modal { position: absolute; top: 10px; right: 15px; font-size: 1.5rem; cursor: pointer; }
+
+/* Tabs */
+.tabs { display: flex; gap: 0; margin-bottom: 1.5rem; }
+.tab { padding: 12px 24px; background: #ddd; border: none; cursor: pointer; font-size: 1rem; }
+.tab.active { background: #2c3e50; color: white; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* Forms */
+form label { display: block; margin-top: 12px; font-weight: bold; }
+form input[type="text"], form input[type="date"], form input[type="password"], form textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
+form button[type="submit"] { margin-top: 16px; padding: 12px 24px; background: #2c3e50; color: white; font-size: 1rem; }
+
+/* Filters */
+.filters { display: flex; gap: 1rem; margin-bottom: 1rem; }
+.filters input, .filters select { padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
+.filters input { flex: 1; }
+
+/* Admin items */
+.admin-item, .claim-card { display: flex; gap: 1rem; padding: 1rem; background: white; margin: 1rem 0; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); align-items: flex-start; }
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-content input,
+.modal-content textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.modal-content label {
+    display: block;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.modal-content button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 16px;
+}
+
+.modal-content button[type="submit"]:hover {
+    background: #2980b9;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #999;
+    line-height: 1;
+}
+
+.close-modal:hover {
+    color: #333;
+}
+
+/* Claim Cards */
+.claim-card {
+    display: flex;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: white;
+    margin: 1rem 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    align-items: flex-start;
+}
+
+.claim-card h3 {
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+}
+
+.claim-card p {
+    margin: 0.3rem 0;
+    line-height: 1.5;
+}
+
+.claim-card button {
+    margin-top: 1rem;
+    margin-right: 0.5rem;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.claim-card .approve {
+    background: #27ae60;
+    color: white;
+}
+
+.claim-card .approve:hover {
+    background: #219a52;
+}
+
+.claim-card .danger {
+    background: #e74c3c;
+    color: white;
+}
+
+.claim-card .danger:hover {
+    background: #c0392b;
+}
+
+.claim-card.status-approved {
+    border-left: 4px solid #27ae60;
+}
+
+.claim-card.status-rejected {
+    border-left: 4px solid #e74c3c;
+}
+
+.claim-card.status-pending {
+    border-left: 4px solid #f39c12;
+}

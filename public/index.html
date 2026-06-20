@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBCFindBack - Lost & Found</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>🔍 MBCFindBack</h1>
+        <p>School Lost & Found System</p>
+    </header>
+
+    <main>
+        <section class="filters">
+            <input type="text" id="searchInput" placeholder="Search items...">
+            <select id="statusFilter">
+                <option value="all">All Items</option>
+                <option value="unclaimed">Unclaimed</option>
+                <option value="claimed">Claimed</option>
+            </select>
+        </section>
+
+        <div id="itemsGrid" class="items-grid">
+            <p>Loading items...</p>
+        </div>
+    </main>
+
+    <!-- Claim Modal -->
+    <div id="claimModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Claim This Item</h2>
+            <form id="claimForm">
+                <input type="hidden" id="claimItemId">
+                
+                <label for="claimantName">Your Full Name *</label>
+                <input type="text" id="claimantName" required minlength="2">
+                
+                <label for="claimantContact">Contact Info (optional)</label>
+                <input type="text" id="claimantContact" placeholder="Email or phone">
+                
+                <label for="pickupDate">When will you pick it up? *</label>
+                <input type="date" id="pickupDate" required>
+                
+                <label for="claimMessage">Message (optional)</label>
+                <textarea id="claimMessage" placeholder="Describe the item to prove it's yours..."></textarea>
+                
+                <button type="submit">Submit Claim</button>
+            </form>
+            <p id="claimMsg"></p>
+        </div>
+    </div>
+
+    <script src="/js/student.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBCFindBack - Admin</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>🔍 MBCFindBack Admin</h1>
+        <button id="logoutBtn">Logout</button>
+    </header>
+
+    <main>
+        <!-- TABS -->
+        <div class="tabs">
+            <button class="tab active" data-tab="upload">📤 Upload Item</button>
+            <button class="tab" data-tab="items">📋 Manage Items</button>
+            <button class="tab" data-tab="claims">🙋 Claims</button>
+        </div>
+
+        <!-- UPLOAD TAB -->
+        <section id="tab-upload" class="tab-content active">
+            <h2>Upload Found Item</h2>
+            <form id="uploadForm" enctype="multipart/form-data">
+                <label>Title *</label>
+                <input type="text" id="itemTitle" required>
+                <label>Description</label>
+                <textarea id="itemDesc"></textarea>
+                <label>Location Found</label>
+                <input type="text" id="itemLocation" placeholder="e.g., Library, Room 201">
+                <label>Date Found *</label>
+                <input type="date" id="itemDate" required>
+                <label>Photo *</label>
+                <input type="file" id="itemImage" accept="image/jpeg,image/png,image/gif,image/webp" required>
+                <img id="imagePreview" style="display:none; max-width:200px; margin:10px 0;">
+                <button type="submit">Upload Item</button>
+            </form>
+            <p id="uploadMsg"></p>
+        </section>
+
+        <!-- ITEMS TAB -->
+        <section id="tab-items" class="tab-content">
+            <h2>All Items</h2>
+            <div id="adminItemsList"></div>
+        </section>
+
+        <!-- CLAIMS TAB -->
+        <section id="tab-claims" class="tab-content">
+            <h2>Claims</h2>
+            <div id="claimsList"></div>
+        </section>
+    </main>
+
+    <script src="/js/admin.js"></script>
+</body>
+</html>
