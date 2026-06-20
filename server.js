@@ -14,6 +14,14 @@ const db = require('./db/database');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const cors = require('cors');
+
+// Add CORS middleware
+app.use(cors({
+    origin: true,
+    credentials: true
+}));
+
 // ============ SECURITY MIDDLEWARE ============
 app.use(helmet({
     crossOriginResourcePolicy: { policy: "cross-origin" },
@@ -45,6 +53,7 @@ const loginLimiter = rateLimit({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
 // Session
 app.use(session({
     secret: process.env.SESSION_SECRET || 'fallback_secret',
@@ -53,8 +62,8 @@ app.use(session({
     cookie: {
         maxAge: 8 * 60 * 60 * 1000,
         httpOnly: true,
-        secure: false,
-        sameSite: 'strict'
+        secure: process.env.NODE_ENV === 'production',  // ← Use HTTPS in production
+        sameSite: 'lax'  // ← Changed to 'lax' for better compatibility
     }
 }));
 
@@ -103,3 +112,4 @@ function waitForDatabase() {
         console.log(`🔑 Login: http://localhost:${PORT}/login.html`);
     });
 })();
+
