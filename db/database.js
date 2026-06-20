@@ -18,7 +18,7 @@ if (usePostgreSQL) {
         ssl: { rejectUnauthorized: false }
     });
 
-    // MAGIC TRANSLATOR: Converts '?' to '$1, $2' for PostgreSQL
+    // Convert '?' to '$1, $2' for PostgreSQL
     function formatQuery(sql, params) {
         let index = 0;
         const formattedSql = sql.replace(/\?/g, () => `$${++index}`);
@@ -44,6 +44,7 @@ if (usePostgreSQL) {
 
     async function initDatabase() {
         try {
+            // Create tables
             await pool.query(`
                 CREATE TABLE IF NOT EXISTS admin (
                     id SERIAL PRIMARY KEY,
@@ -79,14 +80,15 @@ if (usePostgreSQL) {
                 )
             `);
 
-            const existingAdmin = await queryOne('SELECT id FROM admin LIMIT 1');
-            if (!existingAdmin) {
-                const username = process.env.ADMIN_USERNAME || 'mbcfindbackadmin';
-                const password = process.env.ADMIN_PASSWORD || '@weareOSA';
-                const hash = bcrypt.hashSync(password, 10);
-                await execute('INSERT INTO admin (username, password_hash) VALUES (?, ?) RETURNING id', [username, hash]);
-                console.log(`✅ Default admin created: ${username}`);
-            }
+            // RESET ADMIN - Delete existing admin and create new one
+            await pool.query('DELETE FROM admin');
+            
+            const username = process.env.ADMIN_USERNAME || 'mbcfindbackadmin';
+            const password = process.env.ADMIN_PASSWORD || '@weareOSA';
+            const hash = bcrypt.hashSync(password, 10);
+            
+            await execute('INSERT INTO admin (username, password_hash) VALUES (?, ?)', [username, hash]);
+            console.log(`✅ Admin created: ${username} / ${password}`);
 
             dbReady = true;
             console.log('✅ PostgreSQL database initialized and ready');
@@ -149,17 +151,17 @@ else {
             db.run(`CREATE TABLE IF NOT EXISTS found_items (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, description TEXT, image_filename TEXT NOT NULL, location_found TEXT, date_found TEXT NOT NULL, status TEXT DEFAULT 'unclaimed', created_at DATETIME DEFAULT CURRENT_TIMESTAMP)`);
             db.run(`CREATE TABLE IF NOT EXISTS claims (id INTEGER PRIMARY KEY AUTOINCREMENT, item_id INTEGER NOT NULL, claimant_name TEXT NOT NULL, claimant_contact TEXT, pickup_date TEXT NOT NULL, message TEXT, status TEXT DEFAULT 'pending', created_at DATETIME DEFAULT CURRENT_TIMESTAMP)`);
 
+            // RESET ADMIN - Delete existing admin and create new one
+            db.run('DELETE FROM admin');
+            
+            const username = process.env.ADMIN_USERNAME || 'mbcfindbackadmin';
+            const password = process.env.ADMIN_PASSWORD || '@weareOSA';
+            const hash = bcrypt.hashSync(password, 10);
+            
+            execute('INSERT INTO admin (username, password_hash) VALUES (?, ?)', [username, hash]);
+            console.log(`✅ Admin created: ${username} / ${password}`);
+
             saveDatabase();
-
-            const existingAdmin = queryOne('SELECT id FROM admin LIMIT 1');
-            if (!existingAdmin) {
-                const username = process.env.ADMIN_USERNAME || 'mbcfindbackadmin';
-                const password = process.env.ADMIN_PASSWORD || '@weareOSA';
-                const hash = bcrypt.hashSync(password, 10);
-                execute('INSERT INTO admin (username, password_hash) VALUES (?, ?)', [username, hash]);
-                console.log(`✅ Default admin created: ${username}`);
-            }
-
             dbReady = true;
             console.log('✅ sql.js database initialized');
         } catch (err) {
